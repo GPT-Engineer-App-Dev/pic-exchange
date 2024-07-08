@@ -44,7 +44,7 @@ const Feed = () => {
   );
 };
 
-const PhotoCard = ({ photo }) => {
+export const PhotoCard = ({ photo }) => {
   const [likes, setLikes] = useState(photo.likes);
   const [liked, setLiked] = useState(false);
 
