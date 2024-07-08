@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 const schema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters."),
   description: z.string().optional(),
-  photo: z.instanceof(File).refine((file) => file.size <= 5000000, "Max file size is 5MB."),
+  photo: z
+    .instanceof(File)
+    .refine((file) => file.size <= 5000000, "Max file size is 5MB."),
 });
 
 const UploadPhoto = () => {
@@ -17,8 +20,18 @@ const UploadPhoto = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      // Simulate file upload
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast("Photo uploaded successfully!", {
+        description: "Your photo has been uploaded.",
+      });
+    } catch (error) {
+      toast.error("Failed to upload photo", {
+        description: "There was an error uploading your photo.",
+      });
+    }
   };
 
   return (
