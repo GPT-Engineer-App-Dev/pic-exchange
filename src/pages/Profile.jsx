@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { Heart } from "lucide-react";
 
 const fetchUserProfile = async () => {
   // Replace with your API call
@@ -13,12 +15,14 @@ const fetchUserProfile = async () => {
         title: "Sample Photo 1",
         description: "This is a sample photo description.",
         url: "/placeholder.svg",
+        likes: 0,
       },
       {
         id: 2,
         title: "Sample Photo 2",
         description: "This is another sample photo description.",
         url: "/placeholder.svg",
+        likes: 0,
       },
     ],
   };
@@ -44,15 +48,7 @@ const Profile = () => {
       <h2 className="text-xl font-bold mt-6 mb-4">My Photos</h2>
       <div className="grid grid-cols-1 gap-4">
         {data.photos.map((photo) => (
-          <Card key={photo.id}>
-            <CardHeader>
-              <CardTitle>{photo.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <img src={photo.url} alt={photo.title} className="mx-auto object-cover w-full h-[200px]" />
-              <p>{photo.description}</p>
-            </CardContent>
-          </Card>
+          <PhotoCard key={photo.id} photo={photo} />
         ))}
       </div>
     </div>
